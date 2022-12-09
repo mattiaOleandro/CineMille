@@ -42,15 +42,13 @@ public class SignupService {
 
         User userInDB = userRepository.findByEmail(signupDTO.getEmail());
         if(userInDB != null) throw new Exception("User already exist");
-        // creo nuovo user e setto i parametri necessari
+
         User user = new User();
         user.setName(signupDTO.getName());
         user.setEmail(signupDTO.getEmail());
         user.setSurname(signupDTO.getSurname());
         //la password viene codificata con PasswordEncoder e assegnata all'utente
         user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
-
-        //user.setActive(false); // aggiunto parametro in User class
 
         user.setActivationCode(UUID.randomUUID().toString());
 
@@ -61,8 +59,8 @@ public class SignupService {
         roles.add(userRole.get());
         user.setRoles(roles);
 
-        mailNotificationService.sendActivationEmail(user);// invio mail di attivazione
-        return userRepository.save(user); // ritorniamo l'user salvato
+        //mailNotificationService.sendActivationEmail(user);
+        return userRepository.save(user);
     }
 
     public User signupManager(SignupManagerDTO signupManagerDTO, String role) throws Exception{
@@ -87,7 +85,7 @@ public class SignupService {
         roles.add(userRole.get());
         user.setRoles(roles);
 
-        mailNotificationService.sendActivationEmail(user);
+        //mailNotificationService.sendActivationEmail(user);
         return userRepository.save(user);
     }
 

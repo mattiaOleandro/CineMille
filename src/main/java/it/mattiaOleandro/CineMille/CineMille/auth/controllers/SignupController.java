@@ -17,7 +17,6 @@ public class SignupController {
 
     @PostMapping("/signup")
     public User signup(@RequestBody SignupDTO signupDTO) throws Exception {
-
         if (signupDTO == null) throw new NullPointerException("signupDTO is null");
         return signupService.signup(signupDTO);
     }
