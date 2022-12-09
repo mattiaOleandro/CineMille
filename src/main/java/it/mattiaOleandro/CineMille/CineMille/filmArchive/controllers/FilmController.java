@@ -46,12 +46,21 @@ public class FilmController {
         }
     }
 
-    @GetMapping("/filter")
-    public ResponseEntity getFilterFilm(@RequestBody FilmDTO filmDTO){
+    @GetMapping("/filterDateStart")
+    public ResponseEntity getFilterFilmDateStart(@RequestBody FilmDTO filmDTO){
 
         try {
-            if(filmDTO.getFilmDateStart() == null && filmDTO.getFilmDateEnd() == null) return ResponseEntity.badRequest().build();
-            return ResponseEntity.ok(filmRepository.findAllFilmsFilter(filmDTO.getFilmDateStart(), filmDTO.getFilmDateEnd()));
+            return ResponseEntity.ok(filmRepository.findAllFilmsFilterDateStart(filmDTO.getFilmDateStart()));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/filterDateEnd")
+    public ResponseEntity getFilterFilmDateEnd(@RequestBody FilmDTO filmDTO){
+
+        try {
+            return ResponseEntity.ok(filmRepository.findAllFilmsFilterDateEnd(filmDTO.getFilmDateEnd()));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

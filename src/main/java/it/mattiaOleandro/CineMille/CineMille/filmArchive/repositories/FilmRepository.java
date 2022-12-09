@@ -20,7 +20,10 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
     List<Film> findAllFilmsUpcoming(@Param(value = "filmDataEnd") Date filmDataEnd);
 
     @Query(nativeQuery = true, value = "SELECT f.* FROM `film` AS f " +
-            "WHERE f.`film_date_start` = :filmDateStart AND f.`film_date_end` = :filmDateEnd")
-    List<Film> findAllFilmsFilter(@Param(value = "filmDateStart") LocalDate filmDateStart,
-                                  @Param(value = "filmDateEnd") LocalDate filmDateEnd);
+            "WHERE f.`film_date_start` = :filmDateStart")
+    List<Film> findAllFilmsFilterDateStart(@Param(value = "filmDateStart") LocalDate filmDateStart);
+
+    @Query(nativeQuery = true, value = "SELECT f.* FROM `film` AS f " +
+            "WHERE f.`film_date_end` = :filmDateEnd")
+    List<Film> findAllFilmsFilterDateEnd(@Param(value = "filmDateEnd") LocalDate filmDateEnd);
 }
