@@ -17,13 +17,10 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/login")
-    //creiamo un metodo che prende in ingresso un LoginDTO e ci restituisce un LoginRTO
     public LoginRTO login(@RequestBody LoginDTO loginDTO)throws Exception{
 
         if (loginDTO == null) throw new NullPointerException("loginDTO is null.");
-        //invochiamo il metodo login presente nella classe LoginService
         LoginRTO loginRTO = loginService.login(loginDTO);
-        //lanciamo un eccezione generica se loginRTO è nullo
         if(loginRTO == null) throw new Exception("Cannot login");
         return loginRTO;
     }

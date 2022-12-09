@@ -28,6 +28,8 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        //TODO Web sicurity mi da problemi di autorizzazioni, in precedenza estendevo questa classe con una deprecata e utilizzavo un override.
 //        http
 //                .authorizeHttpRequests((ant) -> ant
 //                        .requestMatchers("/src/**").permitAll()

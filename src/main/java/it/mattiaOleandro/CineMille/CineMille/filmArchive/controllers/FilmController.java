@@ -5,10 +5,9 @@ import it.mattiaOleandro.CineMille.CineMille.filmArchive.entities.FilmDTO;
 import it.mattiaOleandro.CineMille.CineMille.filmArchive.repositories.FilmRepository;
 import it.mattiaOleandro.CineMille.CineMille.filmArchive.services.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/film")
@@ -20,23 +19,52 @@ public class FilmController {
     @Autowired
     private FilmService filmService;
 
-    //TODO risolvere problemi inerenti alle date.
-    @GetMapping("/upcoming")
-    public List<Film> getUpcomingFilm(){
+    @PostMapping("/postFilm")
+    public ResponseEntity postFilm(@RequestBody FilmDTO filmDTO){
+        Film film = new Film();
 
-        return filmService.upcoming();
+        film.setFilmName(filmDTO.getFilmName());
+        film.setDescription(filmDTO.getDescription());
+        film.setFilmDateStart(filmDTO.getFilmDateStart());
+        film.setFilmDateEnd(filmDTO.getFilmDateEnd());
+
+        try {
+            if(film == null) return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok(filmRepository.save(film));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/upcoming")
+    public ResponseEntity getUpcomingFilm(){
+
+        try {
+            return ResponseEntity.ok(filmService.upcoming());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/filter")
-    public List<Film> getFilterFilm(@RequestBody FilmDTO filmDTO){
+    public ResponseEntity getFilterFilm(@RequestBody FilmDTO filmDTO){
 
-        return filmRepository.findAllFilmsFilter(filmDTO.getFilmDateStart(), filmDTO.getFilmDateEnd());
+        try {
+            if(filmDTO.getFilmDateStart() == null && filmDTO.getFilmDateEnd() == null) return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok(filmRepository.findAllFilmsFilter(filmDTO.getFilmDateStart(), filmDTO.getFilmDateEnd()));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/historic")
     @PreAuthorize("hasRole('ROLE_MANAGER')")
-    public List<Film> getHistoricFilm(){
+    public ResponseEntity getHistoricFilm(){
 
-        return filmRepository.findAll();
+        try {
+            return ResponseEntity.ok(filmRepository.findAll());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

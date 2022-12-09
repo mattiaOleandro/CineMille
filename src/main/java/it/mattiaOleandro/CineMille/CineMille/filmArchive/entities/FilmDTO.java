@@ -8,7 +8,8 @@ import java.time.LocalDate;
 @Data
 public class FilmDTO {
 
-    private String filName;
+    private String filmName;
+    private String description;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate filmDateStart;

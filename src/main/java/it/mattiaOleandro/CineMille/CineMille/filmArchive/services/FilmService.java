@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @ToString
@@ -44,6 +45,7 @@ public class FilmService {
                 }
             }
         }
-        return listOfFilmUpcoming;
+        HashSet converter = new HashSet(listOfFilmUpcoming);
+        return converter.stream().toList();
     }
 }

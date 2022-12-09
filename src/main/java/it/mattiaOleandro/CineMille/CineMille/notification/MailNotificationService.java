@@ -12,18 +12,20 @@ public class MailNotificationService {
     @Autowired
     private JavaMailSender emailSender;
 
-//    public void sendActivationEmail(User user) {
-//
-//        SimpleMailMessage sms = new SimpleMailMessage();
-//        sms.setTo(user.getEmail()); //setto l'email dell'utente a cui voglio inviare
-//        sms.setSubject("Welcome to CineMille!");
-//        sms.setFrom("develhopeemailexercise@gmail.com");
-//        sms.setReplyTo("develhopeemailexercise@gmail.com");
-//        sms.setText("The activation code is: " + user.getActivationCode());
-//        //sms.setText("Clicca quì per attivare http://localhost:8080/auth/signup/activation" + user.getActivationCode());
-//        emailSender.send(sms);
-//    }
+    //TODO l'email da problemi di sicurezza.
+    public void sendActivationEmail(User user) {
 
+        SimpleMailMessage sms = new SimpleMailMessage();
+        sms.setTo(user.getEmail()); //setto l'email dell'utente a cui voglio inviare
+        sms.setSubject("Welcome to CineMille!");
+        sms.setFrom("develhopeemailexercise@gmail.com");
+        sms.setReplyTo("develhopeemailexercise@gmail.com");
+        sms.setText("The activation code is: " + user.getActivationCode());
+        //sms.setText("Clicca quì per attivare http://localhost:8080/auth/signup/activation" + user.getActivationCode());
+        emailSender.send(sms);
+    }
+
+    //TODO l'email da problemi di sicurezza.
     public void sendPasswordResetMail(User user) {
 
         SimpleMailMessage sms = new SimpleMailMessage();

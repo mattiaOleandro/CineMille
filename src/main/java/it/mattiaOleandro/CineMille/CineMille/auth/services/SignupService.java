@@ -59,6 +59,7 @@ public class SignupService {
         roles.add(userRole.get());
         user.setRoles(roles);
 
+        //TODO l'email da problemi di sicurezza.
         //mailNotificationService.sendActivationEmail(user);
         return userRepository.save(user);
     }
@@ -85,6 +86,7 @@ public class SignupService {
         roles.add(userRole.get());
         user.setRoles(roles);
 
+        //TODO l'email da problemi di sicurezza.
         //mailNotificationService.sendActivationEmail(user);
         return userRepository.save(user);
     }
