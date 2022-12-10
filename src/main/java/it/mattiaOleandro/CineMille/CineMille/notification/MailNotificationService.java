@@ -21,7 +21,6 @@ public class MailNotificationService {
         sms.setFrom("develhopeemailexercise@gmail.com");
         sms.setReplyTo("develhopeemailexercise@gmail.com");
         sms.setText("The activation code is: " + user.getActivationCode());
-        //sms.setText("Clicca quì per attivare http://localhost:8080/auth/signup/activation" + user.getActivationCode());
         emailSender.send(sms);
     }
 
@@ -34,7 +33,6 @@ public class MailNotificationService {
         sms.setFrom("develhopeemailexercise@gmail.com");
         sms.setReplyTo("develhopeemailexercise@gmail.com");
         sms.setText("The password reset code is: " + user.getPasswordResetCode());
-        //sms.setText("Clicca quì per resettare http://localhost:8080/auth/signup/activation" + user.getActivationCode());
         emailSender.send(sms);
     }
 }

@@ -27,10 +27,11 @@ public class PasswordService {
 
         User userFromDB = userRepository.findByEmail(requestPasswordDTO.getEmail());
         if(userFromDB == null || !userFromDB.isActive()) throw new Exception("Cannot find user");
-        //assegno un codice temporaneo
         userFromDB.setPasswordResetCode(UUID.randomUUID().toString());
+
         //invio il codice appena generato via email TODO l'email da problemi di sicurezza.
         //mailNotificationService.sendPasswordResetMail(userFromDB);
+
         return userRepository.save(userFromDB);
     }
 
