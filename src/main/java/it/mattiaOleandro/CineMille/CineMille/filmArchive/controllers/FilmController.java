@@ -4,10 +4,14 @@ import it.mattiaOleandro.CineMille.CineMille.filmArchive.entities.Film;
 import it.mattiaOleandro.CineMille.CineMille.filmArchive.entities.FilmDTO;
 import it.mattiaOleandro.CineMille.CineMille.filmArchive.repositories.FilmRepository;
 import it.mattiaOleandro.CineMille.CineMille.filmArchive.services.FilmService;
+import it.mattiaOleandro.CineMille.CineMille.user.entities.User;
+import it.mattiaOleandro.CineMille.CineMille.user.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/film")
@@ -20,7 +24,12 @@ public class FilmController {
     private FilmService filmService;
 
     @PostMapping("/postFilm")
-    public ResponseEntity postFilm(@RequestBody FilmDTO filmDTO){
+    public ResponseEntity postFilm(@RequestBody FilmDTO filmDTO, Principal principal){
+
+        User user = (User)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+
+        if(!Roles.hasRole(user, Roles.MANAGER)) return ResponseEntity.badRequest().body("You are not authorized");
+
         Film film = new Film();
 
         film.setFilmName(filmDTO.getFilmName());
@@ -67,8 +76,11 @@ public class FilmController {
     }
 
     @GetMapping("/historic")
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
-    public ResponseEntity getHistoricFilm(){
+    public ResponseEntity getHistoricFilm(Principal principal){
+
+        User user = (User)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+
+        if(!Roles.hasRole(user, Roles.MANAGER)) return ResponseEntity.badRequest().body("You are not authorized");
 
         try {
             return ResponseEntity.ok(filmRepository.findAll());

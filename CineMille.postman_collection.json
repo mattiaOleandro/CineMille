@@ -390,7 +390,28 @@
 				},
 				{
 					"name": "Film Historic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token4}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -410,12 +431,33 @@
 				},
 				{
 					"name": "Post Film",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token4}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"filmName\": \"Nuovo Film 2\",\r\n    \"description\": \"Prova post new flim 2\",\r\n    \"filmDateStart\": \"2022-12-01\",\r\n    \"filmDateEnd\": \"2022-12-09\"\r\n}",
+							"raw": "{\r\n    \"filmName\": \"Nuovo Film 6\",\r\n    \"description\": \"Prova post new flim 2\",\r\n    \"filmDateStart\": \"2022-12-01\",\r\n    \"filmDateEnd\": \"2022-12-09\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
